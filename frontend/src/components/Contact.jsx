@@ -1,130 +1,78 @@
-import { useState } from 'react'
-import { Mail, Send, Copy, Check, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react'
-import { personalInfo } from '../data/portfolioData'
-
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [copiedEmail, setCopiedEmail] = useState(false)
-  const [sending, setSending] = useState(false)
-  const [sent, setSent] = useState(false)
-  const [error, setError] = useState('')
-
-  const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }))
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email)
-    setCopiedEmail(true)
-    setTimeout(() => setCopiedEmail(false), 2000)
-  }
-
-  const submit = e => {
-    e.preventDefault()
-    if (!form.name || !form.email || !form.message) {
-      setError('Isi semua field terlebih dahulu.')
-      return
-    }
-    setError('')
-    setSending(true)
-    setTimeout(() => {
-      setSending(false)
-      setSent(true)
-      setForm({ name: '', email: '', message: '' })
-    }, 1000)
-  }
-
-  const inputCls = "w-full px-4 py-3 rounded-xl bg-[#080a10] border border-white/[0.08] text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-400/50 transition-colors"
-
   return (
-    <section id="contact" className="py-24 bg-[#07080d]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 badge badge-cyan mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Kontak
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Mulai <span className="gradient-text">Diskusi</span>
-          </h2>
-          <p className="text-slate-500 text-sm mt-3">Respon dalam &lt; 12 jam · Konsultasi pertama gratis</p>
+    <section id="contact" className="section section--alt" aria-labelledby="contact-heading">
+      <div className="container">
+        <div className="section-header fade-in visible">
+          <span className="section-tag">06 · Contact</span>
+          <h2 id="contact-heading" className="section-title">Mari Terhubung</h2>
+          <p className="section-subtitle">
+            Saya terbuka untuk peluang kerja full-time, freelance, dan kolaborasi.
+          </p>
         </div>
+        <div className="contact__simple fade-in visible">
+          <div className="contact__pills" aria-label="Media sosial dan profil profesional">
+            <a
+              href="mailto:dindalyyaa@gmail.com"
+              className="contact-pill contact-pill--gmail"
+              aria-label="Gmail"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <span>Gmail</span>
+            </a>
 
-        <div className="grid lg:grid-cols-5 gap-8">
+            <a
+              href="https://www.linkedin.com/in/dindaalyaainsani/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-pill contact-pill--linkedin"
+              aria-label="LinkedIn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+              <span>LinkedIn</span>
+            </a>
 
-          {/* Left info */}
-          <div className="lg:col-span-2 space-y-4">
-            {/* Email */}
-            <div className="p-5 rounded-2xl bg-[#0e1018] border border-white/[0.06]">
-              <p className="text-xs text-slate-600 font-mono uppercase mb-3">Email</p>
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-mono text-slate-300 truncate">{personalInfo.email}</span>
-                <button onClick={copyEmail} className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-500 hover:text-white transition-colors shrink-0">
-                  {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                </button>
-              </div>
-            </div>
-
-            {/* Status */}
-            <div className="p-5 rounded-2xl bg-emerald-500/8 border border-emerald-500/18">
-              <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Tersedia
-              </div>
-              <p className="text-xs text-emerald-300/60">{personalInfo.availability}</p>
-            </div>
-          </div>
-
-          {/* Form */}
-          <div className="lg:col-span-3">
-            <div className="p-7 rounded-2xl bg-[#0e1018] border border-white/[0.06]">
-              {sent ? (
-                <div className="py-10 text-center space-y-3">
-                  <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
-                  <p className="font-bold text-white">Pesan terkirim! 🎉</p>
-                  <p className="text-sm text-slate-500">Saya akan membalas dalam 12–24 jam.</p>
-                  <button onClick={() => setSent(false)}
-                    className="mt-2 text-xs text-slate-500 hover:text-slate-300 transition-colors underline">
-                    Kirim lagi
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={submit} className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-mono uppercase text-slate-600 mb-1.5">Nama *</label>
-                      <input type="text" required value={form.name} onChange={set('name')} placeholder="Nama kamu" className={inputCls} />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-mono uppercase text-slate-600 mb-1.5">Email *</label>
-                      <input type="email" required value={form.email} onChange={set('email')} placeholder="email@kamu.com" className={inputCls} />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-mono uppercase text-slate-600 mb-1.5">Pesan *</label>
-                    <textarea rows={4} required value={form.message} onChange={set('message')}
-                      placeholder="Ceritakan proyek atau kebutuhanmu..."
-                      className={`${inputCls} resize-none`} />
-                  </div>
-
-                  {error && (
-                    <div className="flex items-center gap-2 text-rose-400 text-xs">
-                      <AlertCircle className="w-3.5 h-3.5" /> {error}
-                    </div>
-                  )}
-
-                  <button type="submit" disabled={sending}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-[#05060a] font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer">
-                    {sending
-                      ? <div className="w-4 h-4 border-2 border-[#05060a]/30 border-t-[#05060a] rounded-full animate-spin" />
-                      : <><Send className="w-3.5 h-3.5" /> Kirim Pesan</>}
-                  </button>
-                </form>
-              )}
-            </div>
+            <a
+              href="https://instagram.com/dindalyya"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-pill contact-pill--instagram"
+              aria-label="Instagram"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+              <span>Instagram</span>
+            </a>
           </div>
         </div>
-
       </div>
     </section>
   )

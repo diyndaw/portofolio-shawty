@@ -1,108 +1,165 @@
-import { useState } from 'react'
-import { ArrowRight, Mail, Terminal, Copy, Check, Sparkles } from 'lucide-react'
-import { InstagramIcon, LinkedinIcon } from './Icons'
-import { personalInfo, stats } from '../data/portfolioData'
-
 export default function Hero() {
-  const [copied, setCopied] = useState(false)
-
-  const copy = () => {
-    navigator.clipboard.writeText('npx dinda-dev')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+  const handleScrollTo = (e, id) => {
+    e.preventDefault()
+    const target = document.querySelector(id)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      history.pushState(null, '', id)
+    }
   }
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
-      {/* Ambient */}
-      <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-cyan-500/8 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#05060a] to-transparent pointer-events-none" />
+    <section id="hero" className="hero" aria-label="Perkenalan">
+      <div className="hero__bg-image" role="presentation" aria-hidden="true">
+        <img src="/assets/images/hero_bg.webp" alt="" loading="eager" fetchpriority="high" />
+        <div className="hero__bg-overlay"></div>
+      </div>
+      <div className="orb orb--1" aria-hidden="true"></div>
+      <div className="orb orb--2" aria-hidden="true"></div>
+      <div className="orb orb--3" aria-hidden="true"></div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 badge badge-emerald">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Open to work
+      <div className="container hero__container">
+        {/* Kolom Kiri: Teks */}
+        <div className="hero__col-text">
+          <div className="hero__badge">
+            <span className="badge-dot"></span> Open to Work · Sistem Informasi
           </div>
-
-          {/* Headline */}
-          <div className="space-y-2">
-            <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight text-white">
-              Halo, Saya
-              <br />
-              <span className="gradient-text">Dinda</span>
-              <span className="cursor-blink text-cyan-400">_</span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-slate-400 font-medium">
-              Full-Stack Engineer & UI Designer
-            </p>
-          </div>
-
-          {/* Bio — singkat */}
-          <p className="text-slate-500 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            Membangun aplikasi web modern dengan React, TypeScript & Node.js.<br className="hidden sm:block" />
-            Fokus pada performa, estetika, dan pengalaman pengguna.
+          <h1 className="hero__name">
+            Halo, saya<br />
+            <span className="gradient-text">Dinda Alya Ainsani</span>
+          </h1>
+          <p className="hero__tagline">
+            Fresh Graduate Sistem Informasi dengan pengalaman <span className="text-accent">Android Development</span>, administrasi, dan layanan pelanggan.
           </p>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="hero__cta">
             <a
-              href="#projects"
-              id="hero-projects-btn"
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-[#05060a] font-bold text-sm shadow-xl shadow-cyan-500/25 hover:-translate-y-px transition-all duration-200"
+              href="/assets/images/CV_Dinda_Alya_Ainsani.pdf"
+              download
+              className="btn btn--primary"
+              id="btn-download-cv"
+              aria-label="Download CV Dinda Alya Ainsani"
             >
-              Lihat Proyek
-              <ArrowRight className="w-4 h-4" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download CV
             </a>
             <a
               href="#contact"
-              id="hero-contact-btn"
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.1] text-slate-200 font-semibold text-sm transition-all duration-200 hover:-translate-y-px"
+              className="btn btn--outline"
+              id="btn-contact-hero"
+              aria-label="Hubungi saya"
+              onClick={e => handleScrollTo(e, '#contact')}
             >
-              <Mail className="w-4 h-4 text-cyan-400" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
               Hubungi Saya
             </a>
           </div>
-
-          {/* Socials */}
-          <div className="flex items-center justify-center gap-2">
-            <a href={personalInfo.instagram} target="_blank" rel="noreferrer"
-              className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.07] text-slate-500 hover:text-white hover:border-white/20 transition-colors" aria-label="Instagram">
-              <InstagramIcon className="w-4 h-4" />
+          <div className="hero__socials">
+            <a
+              href="https://www.linkedin.com/in/dindaalyaainsani/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link"
+              aria-label="LinkedIn"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
             </a>
-            <a href={personalInfo.linkedin} target="_blank" rel="noreferrer"
-              className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.07] text-slate-500 hover:text-white hover:border-white/20 transition-colors" aria-label="LinkedIn">
-              <LinkedinIcon className="w-4 h-4" />
+            <a
+              href="https://instagram.com/dindalyya"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link"
+              aria-label="Instagram"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
             </a>
-            <a href={`mailto:${personalInfo.email}`}
-              className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.07] text-slate-500 hover:text-white hover:border-white/20 transition-colors" aria-label="Email">
-              <Mail className="w-4 h-4" />
+            <a href="mailto:dindalyyaa@gmail.com" className="social-link" aria-label="Email">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
             </a>
-            <div className="w-px h-5 bg-white/10 mx-1" />
-            <button onClick={copy}
-              className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.07] text-slate-500 hover:text-slate-300 font-mono text-xs transition-colors">
-              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-              npx dinda-dev
-              {copied
-                ? <Check className="w-3.5 h-3.5 text-emerald-400" />
-                : <Copy className="w-3 h-3 opacity-40" />}
-            </button>
           </div>
         </div>
 
-        {/* Stats strip */}
-        <div className="mt-20 grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-white/[0.06] border border-white/[0.06] rounded-2xl overflow-hidden">
-          {stats.map((s, i) => (
-            <div key={i} className="py-7 px-6 bg-[#08090e] hover:bg-[#0c0e16] transition-colors text-center sm:text-left">
-              <div className="text-3xl font-extrabold gradient-text">{s.value}</div>
-              <div className="text-xs text-slate-600 mt-1">{s.label}</div>
+        {/* Kolom Kanan: Foto Profil Estetik */}
+        <div className="hero__col-photo">
+          <div className="hero__photo-wrapper">
+            <div className="hero__photo-glow" aria-hidden="true"></div>
+            <div className="hero__photo-ring" aria-hidden="true"></div>
+            <div className="hero__photo-frame">
+              <img
+                src="/assets/images/three.webp"
+                alt="Foto Dinda Alya Ainsani"
+                width="320"
+                height="340"
+                loading="eager"
+                fetchpriority="high"
+                className="hero__photo-img"
+              />
+              <div className="hero__photo-overlay" aria-hidden="true"></div>
             </div>
-          ))}
+
+            {/* Cute Aesthetic Sparkle */}
+            <div className="hero__photo-sparkle" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
+
+      <a
+        href="#about"
+        className="hero__scroll-cue"
+        aria-label="Scroll ke bawah"
+        onClick={e => handleScrollTo(e, '#about')}
+      >
+        <div className="scroll-arrow"></div>
+      </a>
     </section>
   )
 }

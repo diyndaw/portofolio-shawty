@@ -1,71 +1,160 @@
-import { Calendar, CheckCircle2, Building2, Sparkles } from 'lucide-react'
-import { experienceData } from '../data/portfolioData'
+import { experiencePhotos } from '../data/portfolioData'
 
-export default function Experience() {
+export default function Experience({ onOpenLightbox }) {
+  const experiences = [
+    {
+      id: 'aslab',
+      title: 'Asisten Laboratorium',
+      company: 'Universitas Respati Indonesia',
+      dateText: 'Januari 2025 — Oktober 2026',
+      datetime: '2025-01/2026-10',
+      bullets: [
+        'Membantu dosen dalam mempersiapkan dan mendukung kegiatan praktikum.',
+        'Membantu menyiapkan perangkat, bahan, dan kebutuhan praktikum.',
+        'Terlibat sebagai mentor/pengajar robotik dan scratch dalam kegiatan ekskul untuk memberikan pembelajaran dan pendampingan kepada siswa sekolah dasar.',
+      ],
+      chips: ['Robotik', 'Scratch', 'Mentoring'],
+    },
+    {
+      id: 'android-dev',
+      title: 'Android Developer (Magang)',
+      company: 'Bank Sampah Sumber Jaya Kranggan',
+      dateText: 'September 2024 — Januari 2025',
+      datetime: '2024-09/2025-01',
+      bullets: [
+        'Mengembangkan aplikasi berbasis Android sesuai dengan kebutuhan sistem.',
+        'Mengimplementasikan dan menguji fitur aplikasi.',
+        'Melakukan perbaikan dan pengembangan aplikasi.',
+      ],
+      chips: ['Java', 'Android Studio', 'Firebase', 'Testing'],
+    },
+    {
+      id: 'cs-igo',
+      title: 'Customer Service (Full Time)',
+      company: 'Toko Online IGO Indonesia',
+      dateText: 'Agustus 2021 - Desember 2022',
+      datetime: '2021-08/2022-12',
+      bullets: [
+        'Bertanggung jawab mengoordinasikan tim Customer Service dalam melayani pelanggan.',
+        'Menangani pertanyaan, keluhan, dan kendala terkait pesanan.',
+        'Memantau kualitas pelayanan dan memastikan kebutuhan pelanggan tertangani dengan baik.',
+      ],
+      chips: ['Leadership', 'Team Work', 'Komunikasi', 'Problem Solving'],
+    },
+    {
+      id: 'ga-astra',
+      title: 'General Affair (Praktik Kerja Lapangan)',
+      company: 'PT. Astra Otoparts Tbk. Divisi Winteq',
+      dateText: 'April 2019 — Juli 2019',
+      datetime: '2019-04/2019-07',
+      bullets: [
+        'Membantu pengelolaan administrasi dan dokumen perusahaan.',
+        'Melakukan pendataan kebutuhan dan fasilitas perusahaan.',
+        'Mendukung kegiatan General Affair dalam menunjang kelancaran operasional perusahaan.',
+      ],
+      chips: ['Administrasi', 'Pendataan'],
+    },
+  ]
+
+  const placeholderSvgFallback =
+    "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' width='400' height='300'%3E%3Crect width='100%25' height='100%25' fill='%231e1e2a'/%3E%3Cpath d='M140 180l40-50 50 60h-90zm90-20l30 40h-60l30-40z' fill='%236366f1'/%3E%3Ccircle cx='160' cy='110' r='14' fill='%23a855f7'/%3E%3Ctext x='50%25' y='245' text-anchor='middle' fill='%238888a8' font-family='sans-serif' font-size='13' font-weight='600'%3EDokumentasi Foto%3C/text%3E%3C/svg%3E"
+
   return (
-    <section id="experience" className="py-24 bg-[#07080d]">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-
-        {/* Header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 badge badge-emerald mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Pengalaman
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Riwayat <span className="gradient-text">Karir</span>
-          </h2>
+    <section id="experience" className="section section--alt" aria-labelledby="experience-heading">
+      <div className="container">
+        <div className="section-header fade-in visible">
+          <span className="section-tag">03 · Experience</span>
+          <h2 id="experience-heading" className="section-title">Pengalaman</h2>
         </div>
+        <div className="timeline">
+          {experiences.map(exp => {
+            const photos = experiencePhotos.filter(p => p.experienceId === exp.id)
+            const maxVisible = 4
+            const visiblePhotos = photos.slice(0, maxVisible)
+            const hasMore = photos.length > maxVisible
+            const remainingCount = photos.length - maxVisible
 
-        {/* Timeline */}
-        <div className="relative pl-7 border-l border-white/[0.08] space-y-8">
-          {experienceData.map((exp, i) => (
-            <div key={i} className="relative group">
-              <div className="timeline-dot" />
-              <div className="ml-4 p-5 rounded-2xl bg-[#0e1018] border border-white/[0.06] group-hover:border-white/[0.12] transition-all duration-300 text-left">
-
-                {/* Role & period */}
-                <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
-                  <div>
-                    <h3 className="font-bold text-white">{exp.role}</h3>
-                    <p className="text-sm text-cyan-400 flex items-center gap-1.5 mt-0.5">
-                      <Building2 className="w-3.5 h-3.5" />
-                      {exp.company}
-                      <span className="text-[10px] font-mono text-slate-600 ml-1">{exp.type}</span>
-                    </p>
-                  </div>
-                  <span className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500 bg-white/[0.03] border border-white/[0.06] px-3 py-1 rounded-lg">
-                    <Calendar className="w-3 h-3" />
-                    {exp.period}
-                  </span>
-                </div>
-
-                {/* Achievements — hanya 1-2 poin */}
-                <div className="space-y-1.5 mb-4">
-                  {exp.achievements.slice(0, 2).map((a, j) => (
-                    <div key={j} className="flex items-start gap-2 text-xs text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                      {a}
+            return (
+              <div key={exp.id} className="timeline-item fade-in visible">
+                <div className="timeline-dot" aria-hidden="true"></div>
+                <div className="timeline-card">
+                  <div className="timeline-card__header">
+                    <div>
+                      <h3 className="timeline-card__title">{exp.title}</h3>
+                      <p className="timeline-card__company">{exp.company}</p>
                     </div>
-                  ))}
-                </div>
+                    <time className="timeline-card__date" dateTime={exp.datetime}>
+                      {exp.dateText}
+                    </time>
+                  </div>
+                  <ul className="timeline-card__list">
+                    {exp.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                  <div className="timeline-card__chips">
+                    {exp.chips.map(chip => (
+                      <span key={chip} className="chip-sm">{chip}</span>
+                    ))}
+                  </div>
 
-                {/* Tech */}
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
-                  {exp.tech.slice(0, 5).map((t, j) => (
-                    <span key={j} className="px-2 py-0.5 text-[10px] font-mono rounded-md bg-cyan-500/8 text-cyan-300 border border-cyan-500/12">
-                      {t}
-                    </span>
-                  ))}
-                  {exp.tech.length > 5 && (
-                    <span className="px-2 py-0.5 text-[10px] font-mono text-slate-600">+{exp.tech.length - 5}</span>
+                  {photos.length > 0 && (
+                    <div className="doc-gallery" aria-label={`Galeri dokumentasi ${exp.title}`}>
+                      <div className="doc-gallery__label">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          aria-hidden="true"
+                        >
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                        <span>Dokumentasi ({photos.length} foto)</span>
+                      </div>
+                      <div className="doc-gallery__strip">
+                        {visiblePhotos.map((photo, idx) => {
+                          const isLastWithMore = hasMore && idx === maxVisible - 1
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className={`doc-thumb${isLastWithMore ? ' doc-thumb--more' : ''}`}
+                              aria-label={
+                                isLastWithMore
+                                  ? `Lihat foto dokumentasi: ${photo.caption} (dan ${remainingCount} foto lainnya)`
+                                  : `Lihat foto dokumentasi: ${photo.caption}`
+                              }
+                              onClick={() => onOpenLightbox(photos, idx)}
+                            >
+                              <img
+                                src={photo.src.startsWith('/') ? photo.src : `/${photo.src}`}
+                                alt={photo.caption || `Foto dokumentasi ${idx + 1}`}
+                                loading="lazy"
+                                onError={e => {
+                                  e.currentTarget.onerror = null
+                                  e.currentTarget.src = placeholderSvgFallback
+                                }}
+                              />
+                              {isLastWithMore && (
+                                <span className="doc-thumb__more-overlay" aria-hidden="true">
+                                  +{remainingCount}
+                                </span>
+                              )}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
-
       </div>
     </section>
   )
